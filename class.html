@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Bootstrap, from Twitter</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+      /* Override some defaults */
+      html, body {
+        background-color: #eee;
+      }
+      .container {
+        width: 820px; /* downsize our container to make the content feel a bit tighter and more cohesive. NOTE: this removes two full columns from the grid, meaning you only go to 14 columns and not 16. */
+      /* The white background content wrapper */
+        background-color: #fff;
+        padding: 20px;
+        margin: 0 auto;
+        -webkit-border-radius: 0 0 6px 6px;
+           -moz-border-radius: 0 0 6px 6px;
+                border-radius: 0 0 6px 6px;
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+                box-shadow: 0 1px 2px rgba(0,0,0,.15);
+      }
+
+      /* Page header tweaks */
+      .page-header {
+        background-color: #f5f5f5;
+        padding: 20px 20px 10px;
+        margin: -20px -20px 20px;
+      }
+
+      /* Styles you shouldn't keep as they are for displaying this base example only */
+      .content .span10,
+      .content .span4 {
+        min-height: 500px;
+      }
+      /* Give a quick and non-cross-browser friendly divider */
+      .content .span4 {
+        margin-left: 0;
+        padding-left: 19px;
+        border-left: 1px solid #eee;
+      }
+
+      .topbar .btn {
+        border: 0;
+      }
+
+      .logo { background: url('logo.png') no-repeat; height: 89px; width: 321px; overflow: hidden; text-indent: -9999px; font-size: 24px; }
+
+      .video, .chat { height: 280px; }
+      .video { background: #eee; }
+      .avatar { float: left; display: block; border: 1px solid #eee; margin: 10px 0; overflow: hidden; }
+      .chat .avatar { height: 30px; width: 30px; }
+      .notes .avatar { height: 60px; width: 60px; border-width: 5px; }
+      .comment .message { padding: 10px 10px 10px 80px; border-left: none; }
+      .chat .message { padding-left: 50px; }
+      .notes .message .time { font-weight: bold; font-style: normal; color: #ddd; margin-bottom: 10px; display: block; }
+      .note-ticker { list-style: none; background: #ddd; position:relative; height: 30px; }
+      .note-ticker .stamp { list-style: none; margin: 0; padding: 0; overflow: hidden; display: block; text-indent: -9999px; width: 10px; height: 30px; background-color: #ccc; box-radius: 5px; float: left; position: absolute; }
+
+      .chat { padding-bottom: 30px; height: 250px; position: relative; }
+      .reply-form { height: 30px; position: absolute; bottom: 0; }
+      .reply-form textarea { height: 20px;
+        width: 266px; }
+    </style>
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  </head>
+
+  <body>
+    <div class="container">
+      <header>
+        <h1 class="logo">QWAGO</h1>
+      </header>
+      <div class="row">
+        <section class="clearfix span8 video">
+        </section>
+        <section class="clearfix span6 chat">
+          <article class="comment">
+            <div class="avatar">
+              <img src="#"/>
+            </div>
+            <blockquote class="message">
+              <p>This is the most mind-blowing thing I've ever heard in my whole 25 years of existence!</p>
+            </blockquote>
+          </article>
+          <form class="reply-form">
+            <textarea placeholder="Your message"></textarea>
+            <input type="submit" class="send primary btn" value="Send" />
+          </form>
+        </section>
+      <ol class="clearfix span8 note-ticker">
+        <li class="stamp" style="right: 78%">0:49</li>
+        <li class="stamp" style="right: 5%">6:46</li>
+      </ol>
+      <section class="clearfix span6 question">
+      </section>
+      <section class="clearfix span8 notes">
+        <article class="comment">
+          <div class="avatar">
+            <img src="#"/>
+          </div>
+          <blockquote class="message">
+            <em class="time">0:49</em>
+            <p>This is the most mind-blowing thing I've ever heard in my whole 25 years of existence!</p>
+          </blockquote>
+        </article>
+      </section>
+      </div>
+      <footer>
+        <p>&copy; Company 2011</p>
+      </footer>
+    </div>
+  </body>
+</html>
