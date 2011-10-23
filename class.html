@@ -90,6 +90,18 @@
       .notes-form {}
       .notes-input { width: 452px; }
       .notes-form .send { margin-top: 10px; float: right; }
+
+      li#seeker {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: block;
+        text-indent: -9999px;
+        height: 30px;
+        background-color: #CCC;
+        float: left;
+        position: absolute;
+      }
     </style>
 
     <!-- Le fav and touch icons -->
@@ -100,7 +112,7 @@
 
     <script type="text/javascript" src="jquery.min.js"></script>
     <!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script> -->
-    <!-- <script type="text/javascript" src="/socket.io/socket.io.js"></script> -->
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
     <script type="text/javascript" src="client.js"></script>
     <script type="text/javascript" src="youtube.js"></script>
     <script type="text/javascript" src="swfobject.js"></script>
@@ -113,7 +125,7 @@
       </header>
       <article class="video-info">
         <div class="avatar">
-          <img src="steven.jpg"/>
+          <img src="qwago61.png"/>
         </div>
         <h2 class="title">Ruby on Rails for Beginners</h2>
         <p class="author">by <a href="#">Steven Works</a></p>
@@ -131,6 +143,7 @@
           </section>
         </section>
       <ol class="clearfix span8 note-ticker">
+        <li id="seeker"></li>
         <li class="stamp" style="right: 78%">
           <a href="#note-49"class="time">0:49</a>
         </li>
@@ -170,7 +183,7 @@
       </section>
       </div>
       <footer>
-        <p>&copy; Company 2011</p>
+        <p>&copy; Qwago 2011</p>
       </footer>
     </div>
   </body>

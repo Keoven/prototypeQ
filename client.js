@@ -36,7 +36,7 @@ try {
     var msg = msgInput.attr('value');
     if(msg) {
       try {
-        addMessage(msg);
+        addMessage(msg, username);
         socket.send(msg);
       } catch(e) {}
       msgInput.val('');
@@ -49,7 +49,7 @@ try {
     var msg = msgInput.attr('value');
     if(msg) {
       try {
-        addMessage(msg);
+        addMessage(msg, username);
         socket.send(msg);
       } catch(e) {}
       msgInput.val('');
