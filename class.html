@@ -79,7 +79,8 @@
       .notes .message .time { font-weight: bold; font-style: normal; color: #ddd; margin-bottom: 10px; display: block; }
       .notes .message .time:hover { color: #333; }
       .note-ticker { list-style: none; background: #ddd; position:relative; height: 10px; margin: 0; }
-      .note-ticker .stamp { list-style: none; margin: 0; padding: 0; display: block; text-indent: -9999px; width: 3px; height: 15px; background: orange; -webkit-box-radius: 1px; -moz-box-radius: 1px; box-radius: 1px; float: left; position: absolute; opacity: 0.5; }
+      .note-ticker .stamp { background: orange; list-style: none; margin: 0; padding: 0; display: block; text-indent: -9999px; width: 3px; height: 15px; -webkit-box-radius: 2px; -moz-box-radius: 2px; box-radius: 2px; float: left; position: absolute; }
+      .note-ticker .stamp.alt { background: yellow; }
       .note-ticker .stamp .time { font-weight: bold; background: white; border-radius: 5px; box-shadow: 0 1px 0 #bbb; border: 1px solid #ccc; padding: 5px; text-decoration: none; color: #333; z-index: 1000; opacity: 1.0;  }
       .note-ticker .stamp:hover { text-indent: 0; }
 
@@ -185,14 +186,14 @@
           </section>
         <ol class="clearfix note-ticker">
           <li id="seeker"></li>
-          <li class="stamp" style="left: 2.05%">
-            <a href="#note-5"class="time">0:05</a>
-          </li>
-          <li class="stamp" style="left: 2.47%">
-            <a href="#note-6" class="time">0:06</a>
-          </li>
           <li class="stamp" style="left: 6.17%">
             <a href="#note-15" class="time">0:15</a>
+          </li>
+          <li class="stamp alt" style="left: 2.47%">
+            <a href="#note-6" class="time">0:06</a>
+          </li>
+          <li class="stamp" style="left: 2.05%">
+            <a href="#note-5"class="time">0:05</a>
           </li>
         </ol>
         <section class="notes-container">
