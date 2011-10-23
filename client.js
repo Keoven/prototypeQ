@@ -10,11 +10,10 @@ try {
       addMessage(message, data.name);
     });
   });
-} catch(e) {}
-
   socket.on('username', function(data) {
     username = data.username;
   });
+} catch(e) {}
 
   function addMessage(message, username) {
     $('section.comment-list').append(
