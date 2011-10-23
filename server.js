@@ -19,6 +19,12 @@ var server = http.Server(function(request, response) {
     case '.css':
       contentType = 'text/css';
       break;
+    case '.jpg':
+      contentType = 'image/jpeg';
+      break;
+    case '.png':
+      contentType = 'image/png';
+      break;
     default:
       contentType = 'text/html'
   }
