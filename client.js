@@ -8,9 +8,6 @@ try {
       var message = data.message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
 
       addMessage(message, data.name);
-
-      // TODO: Detect Scroll Height
-      $('.comment-list').scrollTop(100000000000000000)
     });
   });
 } catch(e) {}
@@ -28,6 +25,8 @@ try {
         '</blockquote>' +
       '</article>'
     );
+    // TODO: Detect Scroll Height
+    $('.comment-list').scrollTop(100000000000000000)
   }
 
   var msgInput = $('.reply-input');
