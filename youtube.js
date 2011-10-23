@@ -3,6 +3,9 @@ function updateNotes() {
   if(ytplayer && ytplayer.getDuration &&
      (window.prevTime != ytplayer.getCurrentTime())) {
     window.prevTime = ytplayer.getCurrentTime();
+    var $articles = $('article.note[time=' + parseInt(window.prevTime) + ']:hidden');
+    $articles.fadeIn('fast').delay(10000).fadeOut('fast');
+
     $('li#seeker').width((ytplayer.getCurrentTime() / ytplayer.getDuration() * 100) + "%");
   }
 }
