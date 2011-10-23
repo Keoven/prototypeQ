@@ -49,8 +49,18 @@ socket.sockets.on('connection', function(client) {
   console.log('Client Connected');
   username   = 'User ' + userNumber;
   userNumber = userNumber + 1;
+
+  // Temporary
+  username = userNumber % 2 == 1 ? 'steven' : 'steve'
+
+  client.emit('username', {username: username});
+
   client.on('message', function(message) {
-    client.broadcast.send(username + ': ' + message);
+    var json = JSON.stringify({
+      name   : username,
+      message: message
+    });
+    client.broadcast.send(json);
   });
 });
 

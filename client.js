@@ -1,20 +1,28 @@
+window.username = null
 $(function() {
 try {
   var socket = io.connect('http://localhost', {port: 4000});
   socket.on('connect', function() {
-    socket.on('message', function(message) {
-      var data = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
-      window.scrollBy(0, 10000000000000000);
-      addMessage(message);
-      msgInput.focus();
+    socket.on('message', function(data) {
+      var data = JSON.parse(data);
+      var message = data.message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+
+      addMessage(message, data.name);
+
+      // TODO: Detect Scroll Height
+      $('.comment-list').scrollTop(100000000000000000)
     });
   });
 } catch(e) {}
 
-  function addMessage(message) {
+  socket.on('username', function(data) {
+    username = data.username;
+  });
+
+  function addMessage(message, username) {
     $('section.comment-list').append(
       '<article class="comment">' +
-        '<div class="avatar"> <img src="#"> </div>' +
+        '<div class="avatar"> <img src="' + username + '.jpg"> </div>' +
         '<blockquote class="message">' +
           '<p>' + message + '</p>' +
         '</blockquote>' +
