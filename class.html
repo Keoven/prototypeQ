@@ -2,15 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Bootstrap, from Twitter</title>
+    <title>QWAGO</title>
     <meta name="description" content="">
     <meta name="author" content="">
-
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
-    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
-    <script type="text/javascript" src="client.js"></script>
-    <script type="text/javascript" src="youtube.js"></script>
-    <script type="text/javascript" src="swfobject.js"></script>
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
@@ -24,6 +18,12 @@
       html, body {
         background-color: #eee;
       }
+
+      section:before, section:after, article:before, article:after, .clearfix:before, .clearfix:after { content:""; display:table; }
+      section:after, article:after, .clearfix:after { clear:both; }
+      /* For IE 6/7 (trigger hasLayout) */
+      section, article, .clearfix { zoom:1; }
+
       .container {
         width: 820px; /* downsize our container to make the content feel a bit tighter and more cohesive. NOTE: this removes two full columns from the grid, meaning you only go to 14 columns and not 16. */
       /* The white background content wrapper */
@@ -65,20 +65,31 @@
 
       .video, .chat { height: 280px; }
       .video { background: #eee; }
-      .avatar { float: left; display: block; border: 1px solid #eee; margin: 10px 0; overflow: hidden; }
+      .avatar { float: left; display: block; border: 1px solid #eee; margin: 0; overflow: hidden; border-radius: 5px; box-shadow: 0 1px 5px #ccc; }
+      .avatar img { border-radius: 5px; }
       .chat .avatar { height: 30px; width: 30px; }
-      .notes .avatar { height: 60px; width: 60px; border-width: 5px; }
-      .comment .message { padding: 10px 10px 10px 80px; border-left: none; }
+      .note .avatar { height: 60px; width: 60px; margin: 10px 0; }
+      .video-info .avatar, notes .avatar { height: 60px; width: 60px; border-width: 5px; }
+      .video-info .title, .video-info .author { overflow: hidden; text-overflow: ellipsis; padding: 10px 10px 0 10px; }
+      .video-info .author { padding: 0 10px 10px 10px; }
+      .message { border-left: none; }
+      .note .message { padding: 10px 10px 10px 80px; }
       .chat .message { padding-left: 50px; }
       .notes .message .time { font-weight: bold; font-style: normal; color: #ddd; margin-bottom: 10px; display: block; }
+      .notes .message .time:hover { color: #333; }
       .note-ticker { list-style: none; background: #ddd; position:relative; height: 30px; }
-      .note-ticker .stamp { list-style: none; margin: 0; padding: 0; overflow: hidden; display: block; text-indent: -9999px; width: 10px; height: 30px; background-color: #ccc; box-radius: 5px; float: left; position: absolute; }
+      .note-ticker .stamp { list-style: none; margin: 0; padding: 0; display: block; text-indent: -9999px; width: 10px; height: 30px; background-color: #ccc; box-radius: 5px; float: left; position: absolute; }
+      .note-ticker .stamp .time { font-weight: bold; background: white; border-radius: 5px; box-shadow: 0 1px 0 #bbb; border: 1px solid #ccc; padding: 5px; text-decoration: none; color: #333; }
+      .note-ticker .stamp:hover { text-indent: 0; }
 
       .chat { padding-bottom: 30px; height: 250px; position: relative; }
       .reply-form { height: 30px; position: absolute; bottom: 0; }
-      .reply-form textarea { height: 20px;
-        width: 266px; }
+      .reply-input { width: 265px; }
+      .reply-form textarea { height: 20px; width: 266px; }
       .comment-list { overflow-y: scroll; height: 230px; }
+      .notes-form {}
+      .notes-input { width: 452px; }
+      .notes-form .send { margin-top: 10px; float: right; }
     </style>
 
     <!-- Le fav and touch icons -->
@@ -86,6 +97,13 @@
     <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
     <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
     <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script> -->
+    <!-- <script type="text/javascript" src="/socket.io/socket.io.js"></script> -->
+    <script type="text/javascript" src="client.js"></script>
+    <script type="text/javascript" src="youtube.js"></script>
+    <script type="text/javascript" src="swfobject.js"></script>
   </head>
 
   <body>
@@ -93,13 +111,20 @@
       <header>
         <h1 class="logo">QWAGO</h1>
       </header>
+      <article class="video-info">
+        <div class="avatar">
+          <img src="steven.jpg"/>
+        </div>
+        <h2 class="title">Ruby on Rails for Beginners</h2>
+        <p class="author">by <a href="#">Steven Works</a></p>
+      </article>
       <div class="row">
-        <section class="clearfix span8 video">
+        <section class="span8 video">
           <div id="video"></div>
         </section>
         <section class="clearfix span6 chat">
           <form class="reply-form">
-            <input class="reply-input" placeholder="Your message"></input>
+            <input type="text" class="reply-input" placeholder="Your message"></input>
             <input type="submit" class="send primary btn" value="Send" />
           </form>
           <section class="comment-list">
@@ -114,21 +139,42 @@
           </section>
         </section>
       <ol class="clearfix span8 note-ticker">
-        <li class="stamp" style="right: 78%">0:49</li>
-        <li class="stamp" style="right: 5%">6:46</li>
+        <li class="stamp" style="right: 78%">
+          <a href="#note-49"class="time">0:49</a>
+        </li>
+        <li class="stamp" style="right: 5%">
+          <a href="#note-406" class="time">6:46</a>
+        </li>
       </ol>
-      <section class="clearfix span6 question">
+      <section class="span6 question">
       </section>
-      <section class="clearfix span8 notes">
-        <article class="comment">
-          <div class="avatar">
-            <img src="#"/>
-          </div>
-          <blockquote class="message">
-            <em class="time">0:49</em>
-            <p>This is the most mind-blowing thing I've ever heard in my whole 25 years of existence!</p>
-          </blockquote>
-        </article>
+      <section class="span8 notes-container">
+        <form class="notes-form">
+          <fieldset class="clearfix">
+            <textarea class="notes-input" placeholder="Your note"></textarea>
+            <input type="submit" class="send primary btn" value="Note" />
+          </fieldset>
+        </form>
+        <section class="notes">
+          <article class="note" id="note-49">
+            <div class="avatar">
+              <img src="owlrly.png"/>
+            </div>
+            <blockquote class="message">
+              <a href="#" class="time">0:49</a>
+              <p>This is the most mind-blowing thing I've ever heard in my whole 25 years of existence!</p>
+            </blockquote>
+          </article>
+          <article class="note" id="note-406">
+            <div class="avatar">
+              <img src="owlrly.png"/>
+            </div>
+            <blockquote class="message">
+              <a href="#" class="time">6:46</a>
+              <p>Oh, this looks interesting.</p>
+            </blockquote>
+          </article>
+        </section>
       </section>
       </div>
       <footer>

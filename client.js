@@ -1,13 +1,15 @@
 $(function() {
+try {
   var socket = io.connect('http://localhost', {port: 4000});
   socket.on('connect', function() {
     socket.on('message', function(message) {
       var data = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
       window.scrollBy(0, 10000000000000000);
-      addMessage(message)
+      addMessage(message);
       msgInput.focus();
     });
   });
+} catch(e) {}
 
   function addMessage(message) {
     $('section.comment-list').append(
@@ -25,8 +27,10 @@ $(function() {
     if(event.keyCode != 13) return;
     var msg = msgInput.attr('value');
     if(msg) {
-      addMessage(msg);
-      socket.send(msg);
+      try {
+        addMessage(msg);
+        socket.send(msg);
+      } catch(e) {}
       msgInput.val('');
     }
   });
@@ -36,8 +40,10 @@ $(function() {
     event.preventDefault();
     var msg = msgInput.attr('value');
     if(msg) {
-      addMessage(msg);
-      socket.send(msg);
+      try {
+        addMessage(msg);
+        socket.send(msg);
+      } catch(e) {}
       msgInput.val('');
     }
   });

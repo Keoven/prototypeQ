@@ -2,6 +2,8 @@
  * Polling the player for information
  */
 
+var ytplayer = document.getElementById("video");
+
 // Update a particular HTML element with a new value
 function updateHTML(elmId, value) {
   document.getElementById(elmId).innerHTML = value;
@@ -32,7 +34,6 @@ function updatePlayerInfo() {
 
 // This function is automatically called by the player once it loads
 function onYouTubePlayerReady(playerId) {
-  ytplayer = document.getElementById("video");
   // This causes the updatePlayerInfo function to be called every 250ms to
   // get fresh data from the player
   setInterval(updatePlayerInfo, 250);
